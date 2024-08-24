@@ -2,6 +2,7 @@ import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
 import Swiper from "react-native-swiper";
+import CustomButton from "@/components/CustomButton";
 
 const Welcome = () => {
   const swiperRef = useRef<Swiper>(null);
@@ -36,6 +37,10 @@ const Welcome = () => {
             <Text>hello</Text>
           </View>
         </Swiper>
+        <CustomButton
+          buttonText="Next"
+          onPress={() => setActive((val) => val + 1)}
+        />
       </View>
     </SafeAreaView>
   );
