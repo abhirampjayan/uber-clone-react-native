@@ -1,8 +1,15 @@
-import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
 import Swiper from "react-native-swiper";
 import CustomButton from "@/components/CustomButton";
+import { data, welcomeScreenContents } from "@/constants";
 
 const Welcome = () => {
   const swiperRef = useRef<Swiper>(null);
@@ -21,25 +28,36 @@ const Welcome = () => {
       </View>
       <View className="h-full flex pb-12">
         <Swiper
+          index={active}
           loop={false}
           ref={swiperRef}
           onIndexChanged={(index) => setActive(index)}
           dot={<View className="w-2 h-2 bg-gray-300 rounded-full m-1" />}
           activeDot={<View className="w-2 h-2 bg-blue-500 rounded-full m-1" />}
         >
-          <View>
-            <Text>hello</Text>
-          </View>
-          <View>
-            <Text>hello</Text>
-          </View>
-          <View>
-            <Text>hello</Text>
-          </View>
+          {data.onboarding.map(({ description, id, title, image }) => (
+            <View key={id} className="justify-center flex items-center grow">
+              <Image
+                source={image}
+                resizeMode="contain"
+                className="aspect-square max-w-full h-1/2"
+              />
+              <Text className="text-xl font-bold">{title}</Text>
+              <Text className={"text-center"}>{description}</Text>
+            </View>
+          ))}
         </Swiper>
         <CustomButton
-          buttonText="Next"
-          onPress={() => setActive((val) => val + 1)}
+          buttonText={
+            welcomeScreenContents.length - 1 === active
+              ? "Get started!"
+              : "Next"
+          }
+          onPress={() => {
+            welcomeScreenContents.length - 1 === active
+              ? router.replace("/(auth)/sign-up")
+              : setActive(active + 1);
+          }}
         />
       </View>
     </SafeAreaView>
