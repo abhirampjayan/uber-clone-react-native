@@ -98,31 +98,3 @@ export const onboarding = [
 export const data = {
   onboarding,
 };
-
-export const welcomeScreenContents = [
-  {
-    name: "Hello Welcome to the app",
-    description: "Your personal ride, just a tap away.",
-    Image: "",
-  },
-  {
-    name: "Easy Booking",
-    description: "Book a ride in seconds.",
-    Image: "",
-  },
-  {
-    name: "Real-Time Tracking",
-    description: "Stay updated on your ride's status.",
-    Image: "",
-  },
-  {
-    name: "Safe & Secure",
-    description: "Your safety is our priority",
-    Image: "",
-  },
-  {
-    name: "What you are waiting for?",
-    description: "Book your first ride now!",
-    Image: "",
-  },
-];
