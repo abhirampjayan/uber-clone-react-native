@@ -25,7 +25,7 @@ const Welcome = () => {
           }}
           className="flex items-end justify-center p-5"
         >
-          <Text>Skip</Text>
+          <Text className="font-JakartaBold text-black">Skip</Text>
         </TouchableOpacity>
       </View>
       <View className="h-full flex pb-12">
@@ -44,7 +44,9 @@ const Welcome = () => {
                 className="aspect-square max-w-full h-1/2"
               />
               <Text className="text-xl font-bold">{title}</Text>
-              <Text className={"text-center"}>{description}</Text>
+              <Text className={"text-center mt-3 font-JakartaSemiBold"}>
+                {description}
+              </Text>
             </View>
           ))}
         </Swiper>
