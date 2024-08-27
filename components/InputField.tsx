@@ -1,36 +1,51 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import {
   KeyboardAvoidingView,
   Text,
   TextInput,
   TouchableWithoutFeedback,
   View,
+  Image,
+  ImageSourcePropType,
+  Keyboard,
+  Platform,
 } from "react-native";
 
 interface InputFieldProps {
   placeholder: string;
-  textContentType: string;
   className?: string;
   label: string;
   labelStyle?: string;
+  secureTextEntry?: boolean;
+  icon?: ImageSourcePropType;
+  value: string;
+  onChangeText: (text: string) => void;
 }
 
 const InputField: FC<InputFieldProps> = ({
   label,
-  placeholder,
   labelStyle,
+  className,
+  icon,
+  ...props
 }) => {
   return (
-    <KeyboardAvoidingView>
-      <TouchableWithoutFeedback>
-        <View className="my-4 px-4">
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View className="my-2 w-full">
           <Text
-            className={`text-lg font-JakartaSemiBold font-semibold mb-3 ${labelStyle}`}
+            className={`text-md text-neutral-600 font-JakartaSemiBold font-semibold mb-3 ${labelStyle}`}
           >
             {label}
           </Text>
           <View className="flex flex-row justify-start items-center bg-neutral-50 rounded-full border border-neutral-100 focus:border-blue-500">
-            <TextInput placeholder={placeholder} />
+            {icon && <Image source={icon} className={`w-6 h-6 ml-4`} />}
+            <TextInput
+              {...props}
+              className={`p-4 flex mr-4 grow ${className}`}
+            />
           </View>
         </View>
       </TouchableWithoutFeedback>
