@@ -49,7 +49,7 @@ const SignIn = () => {
           onPress={onSignUpPress}
         />
         {/*  OAuth*/}
-        <Link href="/sign-in" className="mx-auto text-md mt-10">
+        <Link href="/sign-up" className="mx-auto text-md mt-10">
           <Text>Don't have an account?</Text>
           <Text className="text-blue-500">&nbsp;Create an account</Text>
         </Link>
