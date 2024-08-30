@@ -4,6 +4,8 @@ import InputField from "@/components/InputField";
 import { useState } from "react";
 import CustomButton from "@/components/CustomButton";
 import { Link } from "expo-router";
+import SignInWithGoogle from "@/components/SignInWithGoogle";
+import AuthDivider from "@/components/AuthDivider";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -56,8 +58,11 @@ const SignUp = () => {
           className="mt-4 rounded-full shadow-lg"
           onPress={onSignUpPress}
         />
-        {/*  OAuth*/}
-        <Link href="/sign-in" className="mx-auto text-md mt-10">
+        <View className="px-4 pb-6 pt-4 flex">
+          <AuthDivider />
+        </View>
+        <SignInWithGoogle />
+        <Link href="/sign-in" className="mx-auto text-md mt-6 mb-10">
           <Text>Already have an account?</Text>
           <Text className="text-blue-500">&nbsp;Sign In</Text>
         </Link>
