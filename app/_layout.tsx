@@ -24,11 +24,11 @@ export default function RootLayout() {
 
   const publishableKey = envConf.CLERK_FRONTEND_API;
 
-  if (!publishableKey) {
+  if (!publishableKey)
     throw new Error(
       "Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env",
     );
-  }
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
