@@ -8,12 +8,13 @@ export interface CustomButtonProps
 
 const CustomButton: FC<CustomButtonProps> = ({
   buttonText = "Click me",
+  className,
   ...props
 }) => {
   return (
     <TouchableOpacity
       {...props}
-      className="bg-blue-500 p-4 flex items-center mx-3 mb-3"
+      className={`bg-blue-500 p-4 flex items-center mx-3 mb-3 ${className}`}
     >
       <Text className="text-white font-bold">{buttonText}</Text>
     </TouchableOpacity>

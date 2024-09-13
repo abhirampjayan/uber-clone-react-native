@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { ComponentProps, FC } from "react";
 import {
   KeyboardAvoidingView,
   Text,
@@ -11,10 +11,10 @@ import {
   Platform,
 } from "react-native";
 
-interface InputFieldProps {
+interface InputFieldProps extends ComponentProps<typeof TextInput> {
   placeholder: string;
   className?: string;
-  label: string;
+  label?: string;
   labelStyle?: string;
   secureTextEntry?: boolean;
   icon?: ImageSourcePropType;
@@ -35,11 +35,13 @@ const InputField: FC<InputFieldProps> = ({
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View className="my-2 w-full">
-          <Text
-            className={`text-md text-neutral-600 font-JakartaSemiBold font-semibold mb-3 ${labelStyle}`}
-          >
-            {label}
-          </Text>
+          {label && (
+            <Text
+              className={`text-md text-neutral-600 font-JakartaSemiBold font-semibold mb-3 ${labelStyle}`}
+            >
+              {label}
+            </Text>
+          )}
           <View className="flex flex-row justify-start items-center bg-neutral-50 rounded-full border border-neutral-100 focus:border-blue-500">
             {icon && <Image source={icon} className={`w-6 h-6 ml-4`} />}
             <TextInput

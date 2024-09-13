@@ -3,14 +3,16 @@ import { icons, images } from "@/constants";
 import InputField from "@/components/InputField";
 import { useState } from "react";
 import CustomButton from "@/components/CustomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import SignInWithGoogle from "@/components/SignInWithGoogle";
 import AuthDivider from "@/components/AuthDivider";
 import { useSignUp } from "@clerk/clerk-expo";
 import { ReactNativeModal } from "react-native-modal";
+import { set } from "yaml/dist/schema/yaml-1.1/set";
 
 const SignUp = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -41,10 +43,7 @@ const SignUp = () => {
 
       setVerification({ ...verification, state: "pending" });
     } catch (err: any) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
       Alert.alert("", err.errors[0].longMessage);
-      console.error(JSON.stringify(err, null, 2));
     }
   };
 
@@ -123,7 +122,42 @@ const SignUp = () => {
           <Text className="text-blue-500">&nbsp;Sign In</Text>
         </Link>
         {/*  Verification Modal*/}
-        <ReactNativeModal isVisible={verification.state === "success"}>
+        <ReactNativeModal
+          isVisible={verification.state === "pending"}
+          onModalHide={() => {
+            if (verification.state === "success") {
+              setShowSuccessModal(true);
+              setVerification({
+                ...verification,
+                code: 's              setVerification({ ...verification, code: "success" });\nuccess',
+              });
+            }
+          }}
+        >
+          <View className="bg-white flex px-7 py-9 rounded-2xl">
+            <Text className="text-xl font-JakartaBold">Verification</Text>
+            <Text className=" text-gray-400 mt-3 mb-5">
+              We&apos;ve sent a verification code to {form.email}
+            </Text>
+            <Text className="text-lg font-Jakarta">Code</Text>
+            <InputField
+              placeholder="12345"
+              icon={icons.lock}
+              value={verification.code}
+              keyboardType="numeric"
+              onChangeText={(text) =>
+                setVerification({ ...verification, code: text })
+              }
+            />
+            <CustomButton
+              buttonText="Verify Email"
+              className="mt-4 rounded-full shadow-lg bg-green-600 mx-0"
+              onPress={onPressVerify}
+            />
+          </View>
+        </ReactNativeModal>
+        {/*  Verification Success Modal*/}
+        <ReactNativeModal isVisible={showSuccessModal}>
           <View className="bg-white flex px-7 py-9 rounded-2xl">
             <Image source={images.check} className="w-20 h-20 mx-auto mb-5 " />
             <Text className="text-3xl text-center font-JakartaBold">
@@ -132,6 +166,11 @@ const SignUp = () => {
             <Text className="text-center text-gray-400 mt-3">
               You have successfully verified
             </Text>
+            <CustomButton
+              buttonText="Continue"
+              className="mt-4 rounded-full shadow-lg shadow-blue-300"
+              onPress={() => router.push("/(root)/(tabs)/home")}
+            />
           </View>
         </ReactNativeModal>
       </View>
